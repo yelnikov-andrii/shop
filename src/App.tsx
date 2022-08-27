@@ -5,7 +5,7 @@ import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
 import { Product } from './components/Product/Product';
 import { Cart } from './components/Cart/Cart';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { getData } from './api/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_PRODUCTS, GET_CURRENCIES_LIST } from './store/storeReducer';
@@ -26,7 +26,7 @@ const  App: React.FC = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
       <Header categories={categories} />
       <Routes>
@@ -71,7 +71,7 @@ const  App: React.FC = () => {
             ))}
           </Routes>
     </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
