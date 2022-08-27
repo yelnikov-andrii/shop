@@ -7,21 +7,26 @@ import { Product } from './components/Product/Product';
 import { Cart } from './components/Cart/Cart';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { getData } from './api/api';
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_PRODUCTS, GET_CURRENCIES_LIST } from './store/storeReducer';
-import { Category, State } from './types/type';
+import { useDispatch } from 'react-redux';
+import { GET_CURRENCIES_LIST } from './store/storeReducer';
+import { Category } from './types/type';
 
 const  App: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const dispatch = useDispatch();
-  const products = useSelector((state: State) => state.products);
+  const [allProducts, setAllProducts] = useState([]);
+  const [techProducts, setTechProducts] = useState([]);
+  const [clothProducts, setClothProducts] = useState([]);
 
   useEffect(() => {
     getData()
     .then(result => {
       setCategories(result);
       dispatch({ type: GET_CURRENCIES_LIST, payload: result[0].products[0].prices });
-      dispatch({ type: SET_PRODUCTS, payload: result[0].products });
+      setAllProducts(result[0].products);
+      setClothProducts(result[1].products);
+      setTechProducts(result[2].products);
+
     })
   }, []);
 
@@ -33,17 +38,17 @@ const  App: React.FC = () => {
             <Route 
               path='/'
               element={
-                <Main products={products}/>}> 
+                <Main products={allProducts}/>}> 
             </Route>
             <Route 
               path='tech'
               element={
-                <Main products={products}/>}> 
+                <Main products={techProducts}/>}> 
             </Route>
             <Route 
               path='clothes'
               element={
-                <Main products={products}/>}> 
+                <Main products={clothProducts}/>}> 
             </Route>
 
             <Route 
@@ -59,7 +64,7 @@ const  App: React.FC = () => {
             </Route>
           </Routes>
       <Routes>
-          {products.map((product: any) => (
+          {allProducts.map((product: any) => (
               <Route 
                 path={`/${product.id}`}
                 key={product.id}

@@ -2,11 +2,12 @@
 import Brand_icon from '../../images/Brand_icon.svg';
 import Empty_Cart from '../../images/Empty_Cart.svg';
 import classNames from 'classnames';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { SELECT_CATEGORY, SET_PRODUCTS } from '../../store/storeReducer';
 import { Select } from '../Select/Select';
 import { Category, State } from '../../types/type';
+import { useEffect } from 'react';
 
 type Props = {
   categories: Category[];
@@ -16,6 +17,18 @@ export const Header: React.FC <Props> = ({ categories }) => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector((state: State) => state.selectedCategory);
   const quantityOfProducts = useSelector((state: State) => state.quantityOfProducts);
+  const location = useLocation();
+
+  useEffect(() => {
+    const loc = location.pathname.slice(1);
+    if (location.pathname === '/' || location.pathname === '/tech' || location.pathname === '/clothes') {
+      if (location.pathname === '/') {
+        dispatch({ type: SELECT_CATEGORY, payload: 'all' });
+      } else {
+        dispatch({type: SELECT_CATEGORY, payload: loc});
+      }
+    }
+  }, [location.pathname])
 
   return (
     <header
