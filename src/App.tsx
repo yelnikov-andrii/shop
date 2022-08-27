@@ -9,11 +9,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { getData } from './api/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_PRODUCTS, GET_CURRENCIES_LIST } from './store/storeReducer';
+import { Category, State } from './types/type';
 
-function App() {
-  const [categories, setCategories] = useState([]);
+const  App: React.FC = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
   const dispatch = useDispatch();
-  const products = useSelector((state: any) => state.products);
+  const products = useSelector((state: State) => state.products);
 
   useEffect(() => {
     getData()

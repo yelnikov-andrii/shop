@@ -1,25 +1,23 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_PRODUCT_TO_CART, GET_QUANTITY_OF_PRODUCTS } from '../../store/storeReducer';
+import { State, SelectedProduct, ProductType, Price, Attribute, Item } from '../../types/type';
 
-
-type State = {
-  selAttr: any[],
-  qty: number,
-  translate: number,
-
+type Props = {
+  product: ProductType,
 }
 
-export const Product: React.FC <any> = ({product}) => {
+export const Product: React.FC <Props> = ({product}) => {
   const images = product.gallery;
   const [selectedImage, setSelectedImage] = useState(images[0]);
-  const[selectedProduct, setSelectedProduct] = useState<State>();
-  const selectedCurrency = useSelector((state: any) => state.selectedCurrency);
+  const[selectedProduct, setSelectedProduct] = useState<SelectedProduct>();
+  const selectedCurrency = useSelector((state: State) => state.selectedCurrency);
   const dispatch = useDispatch();
 
-  const price = product.prices.find((item: any) => item.currency.symbol === selectedCurrency);
+  const price = product.prices.find((item: Price) => item.currency.symbol === selectedCurrency);
 
-  const getDescription = (value: any) => {
+  const getDescription = (value: string) => {
     if (value) {
       const elem = document.getElementById('desc');
       if (elem) {
@@ -30,7 +28,11 @@ export const Product: React.FC <any> = ({product}) => {
 
   useEffect(() => {
     getDescription(product.description);
-    setSelectedProduct(product);
+    const prod = {...product};
+    prod.translate = 0;
+    prod.selAttr = [];
+    prod.qty = 0;
+    setSelectedProduct(prod);
 
   }, [product]);
 
@@ -39,7 +41,7 @@ export const Product: React.FC <any> = ({product}) => {
       <article className='product'>
       <div className='product__block-images'>
         <div className='product__block-images_aside'>
-          {images.map((image: any) => (
+          {images.map((image: string) => (
             <img 
               src={image} 
               alt=''
@@ -65,13 +67,13 @@ export const Product: React.FC <any> = ({product}) => {
           <p className='product-description__name'>
             {product.name}
           </p>
-          {product.attributes.map((attribute: any) => (
+          {product.attributes.map((attribute: Attribute) => (
             <React.Fragment key={attribute.id}>
             <span className='product-description-list-title'>
               {attribute.id}:
             </span>
             <ul className='product-description__list'>
-              {attribute.items.map((item: any) => {
+              {attribute.items.map((item: Item) => {
                 if (attribute.id === 'Color') {
                   return (
                     <li
@@ -141,7 +143,7 @@ export const Product: React.FC <any> = ({product}) => {
             Price:
           </p>
           <p className='product-description__price-value'>
-            {`${price.currency.symbol} ${price.amount}`}
+            {`${price?.currency.symbol} ${price?.amount}`}
           </p>
 
           {product.inStock ? (

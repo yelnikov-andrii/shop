@@ -6,15 +6,16 @@ import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { SELECT_CATEGORY, SET_PRODUCTS } from '../../store/storeReducer';
 import { Select } from '../Select/Select';
+import { Category, State } from '../../types/type';
 
 type Props = {
-  categories: any;
+  categories: Category[];
 }
 
 export const Header: React.FC <Props> = ({ categories }) => {
   const dispatch = useDispatch();
-  const selectedCategory = useSelector((state: any) => state.selectedCategory);
-  const quantityOfProducts = useSelector((state: any) => state.quantityOfProducts);
+  const selectedCategory = useSelector((state: State) => state.selectedCategory);
+  const quantityOfProducts = useSelector((state: State) => state.quantityOfProducts);
 
   return (
     <header
@@ -27,29 +28,30 @@ export const Header: React.FC <Props> = ({ categories }) => {
       <ul
         className='header__list'
       >
-        {categories.map((category: any) => (
+        {categories.map((category: Category) => (
             <Link
               to={`/${category.name}`}
               key={category.name}
               onClick={() => {
                 dispatch({ type: SELECT_CATEGORY, payload: category.name });
                 dispatch({type: SET_PRODUCTS, payload: category.products});
-            }}
-            className={classNames('header__list-item', {
-          'header__list-item--active': selectedCategory === category.name})}
+              }}
+              className={classNames('header__list-item', {
+              'header__list-item--active': selectedCategory === category.name})}
             >
               {category.name}
             </Link>
 
         ))}
       </ul>
-      <Link to='/all' onClick={() => {
+      <Link to='/all' 
+        onClick={() => {
         dispatch({ type: SELECT_CATEGORY, payload: 'all' });
         dispatch({type: SET_PRODUCTS, payload: categories[0].products});
       }}>
         <img 
-          src={Brand_icon} 
-          alt='brand icon' 
+          src={Brand_icon}
+          alt='brand icon'
           className='header__logo'
         />
       </Link>

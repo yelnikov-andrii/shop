@@ -2,12 +2,13 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { INCREASE_QUANTITY, GET_QUANTITY_OF_PRODUCTS, DECREASE_QUANTITY, GET_TOTAL_PRICE, SET_TRANSLATE_TO_PRIDUCT } from '../../store/storeReducer';
+import { Item, Price, SelectedProduct, State } from '../../types/type';
 
-export const Cart = () => {
-  const selectedProducts = useSelector((state: any) => state.selectedProducts);
-  const selectedCurrency = useSelector((state: any) => state.selectedCurrency);
-  const quantityOfProducts = useSelector((state: any) => state.quantityOfProducts);
-  const total = useSelector((state: any) => state.totalPrice) || 0;
+export const Cart: React.FC = () => {
+  const selectedProducts = useSelector((state: State) => state.selectedProducts);
+  const selectedCurrency = useSelector((state: State) => state.selectedCurrency);
+  const quantityOfProducts = useSelector((state: State) => state.quantityOfProducts);
+  const total = useSelector((state: State) => state.totalPrice) || 0;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export const Cart = () => {
 
         ) : (
           <div className='cart__block'>
-        {selectedProducts.map((product: any) => (
+        {selectedProducts.map((product: SelectedProduct) => (
           <React.Fragment key={product.id}>
               <div className='cart__block-item'>
                 <div className='cart__block-description product-description'>
@@ -40,7 +41,7 @@ export const Cart = () => {
                   Price:
                 </p>
                 <p className='product-description__price-value'>
-                  {`${selectedCurrency}` + product.prices.find((x: any) => x.currency.symbol === selectedCurrency).amount}
+                  {`${selectedCurrency}` + product.prices.find((x: Price) => x.currency.symbol === selectedCurrency)?.amount}
                 </p>
                 {product.attributes.map((attribute: any) => (
                   <React.Fragment key={attribute.id}>
@@ -48,7 +49,7 @@ export const Cart = () => {
                     {attribute.id}:
                   </span>
                   <ul className='product-description__list'>
-                    {attribute.items.map((item: any) => {
+                    {attribute.items.map((item: Item) => {
                       if (attribute.id === 'Color') {
                         return (
                           <li
@@ -111,7 +112,6 @@ export const Cart = () => {
                           return
                         } else {
                           dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {id: product.id, value: 210, }});
-                          console.log(selectedProducts)
                         }
                       }}
                   >
@@ -120,12 +120,12 @@ export const Cart = () => {
                   <button 
                     className='cart__block-slider-btn'
                     onClick={() => {
-                      if (product.translate <= 210 * -1 * (product.gallery.length - 1)) {
-                        return
-                      } else {
-                        dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {id: product.id, value: -210, }});
-                        console.log(selectedProducts)
-                      }
+                        if (product.translate <= (210 * -1 * (product.gallery.length - 1))) {
+                          return
+                        } else {
+                          dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {id: product.id, value: -210, }});
+                          console.log(selectedProducts)
+                        }
                     }}
                   >
                     &#10095;
@@ -134,12 +134,12 @@ export const Cart = () => {
                     className='cart__block-quantity_images'
                     style={{transform: `translateX(${product.translate}px)`}}
                   >
-                    {product.gallery.map((image: any) => (
+                    {product.gallery.map((image: string) => (
                       <img 
                       src={image} 
                       alt='' 
                       className='cart__block-quantity_images-img'
-                      key={image.id}
+                      key={image }
                       />
                     ))}
                   </div>
@@ -164,7 +164,7 @@ export const Cart = () => {
 
             <li className='cart__block-bottom-list_item'>
               Total: <span className='cart__block-bottom-list_item-value'>
-                  {`${selectedCurrency}${total}`}
+                  {`${selectedCurrency}${total.toFixed(2)}`}
                 </span>
             </li>
           </ul>

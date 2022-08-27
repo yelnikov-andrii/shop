@@ -1,10 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import classNames from "classnames";
+import { Price, ProductType, State } from '../../types/type';
 
-export const Main: React.FC <any> = ({products}) => {
-  const selectedCategory = useSelector((state: any) => state.selectedCategory);
-  const selectedCurrency = useSelector((state: any) => state.selectedCurrency);
+type Props = {
+  products: ProductType[],
+}
+
+export const Main: React.FC <Props> = ({products}) => {
+  const selectedCategory = useSelector((state: State) => state.selectedCategory);
+  const selectedCurrency = useSelector((state: State) => state.selectedCurrency);
 
   return (
     <main
@@ -19,7 +24,7 @@ export const Main: React.FC <any> = ({products}) => {
     <div
       className='main__block'
     >
-      {products.length !== 0 && (products.map((product: any) => (
+      {products.length !== 0 && (products.map((product: ProductType) => (
         <NavLink 
           className={classNames('main__block-item product-card', {
             'main__block-item product-card  product-card--outstock': !product.inStock,
@@ -33,7 +38,7 @@ export const Main: React.FC <any> = ({products}) => {
           </p>
           <p className='product-card__price'>
             {selectedCurrency}
-            {product.prices.find((price: any) => price.currency.symbol === selectedCurrency).amount}
+            {product.prices.find((price: Price) => price.currency.symbol === selectedCurrency)?.amount}
           </p>
         </NavLink>
       )))}
