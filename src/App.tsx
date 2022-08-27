@@ -31,7 +31,7 @@ const  App: React.FC = () => {
       <Header categories={categories} />
       <Routes>
             <Route 
-              path='all'
+              path='/'
               element={
                 <Main products={products}/>}> 
             </Route>
@@ -47,8 +47,8 @@ const  App: React.FC = () => {
             </Route>
 
             <Route 
-              path='/' 
-              element={<Navigate replace to='/all'/>}>
+              path='/all' 
+              element={<Navigate replace to='/'/>}>
             </Route>
 
             <Route 
