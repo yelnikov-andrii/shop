@@ -21,8 +21,8 @@ export const Header: React.FC <Props> = ({ categories }) => {
 
   useEffect(() => {
     const loc = location.pathname.slice(1);
-    if (location.pathname === '/' || location.pathname === '/tech' || location.pathname === '/clothes') {
-      if (location.pathname === '/') {
+    if (location.pathname === '#' || location.pathname === '#tech' || location.pathname === '#clothes') {
+      if (location.pathname === '#') {
         dispatch({ type: SELECT_CATEGORY, payload: 'all' });
       } else {
         dispatch({type: SELECT_CATEGORY, payload: loc});
