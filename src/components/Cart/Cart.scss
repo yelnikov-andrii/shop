@@ -1,0 +1,149 @@
+.cart {
+  padding: 80px 0 270px;
+
+  &__title {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    text-transform: uppercase;
+    margin-bottom: 55px;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 23px 0 0 0;
+    }
+
+    &-description {
+      width: 290px;
+
+      &-top-block {
+        margin-bottom: 32px;
+      }
+    }
+
+    &-slider {
+
+      &-wrapper {
+      overflow: hidden;
+      width: 210px;
+      position: relative;
+      }
+      
+      &-btn {
+        position: absolute;
+        z-index: 2;
+        display: block;
+        right: 0;
+        bottom: 24px;
+        width: 24px;
+        height: 24px;
+        background: rgba(0, 0, 0, 0.73);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &--left {
+          right: 30px;
+        }
+      }
+    }
+
+    &-quantity {
+      width: 290px;
+      display: flex;
+      justify-content: space-between;
+
+      &_selectors {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 24px 24px 0;
+
+        &-btn {
+          width: 45px;
+          height: 45px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid $main-txt-color;
+          background: transparent;
+          outline: none;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        &-value {
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 160%;
+        }
+      }
+
+      &_images {
+        display: flex;
+        transition: 0.8s ease;
+
+        &-img {
+          width: 210px;
+          height: 318px;
+          object-fit: contain;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &-bottom {
+      margin-top: 32px;
+
+      &-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 28px;
+        margin-bottom: 16px;
+
+        &_item {
+          margin-bottom: 8px;
+          &-value {
+            font-weight: 700;
+          }
+        }
+      }
+
+      &-button {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 120%;
+        color: #fff;
+        width: 279px;
+        height: 43px;
+        background-color: $hover-color;
+        text-transform: uppercase;
+        border: none;
+        outline: none;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

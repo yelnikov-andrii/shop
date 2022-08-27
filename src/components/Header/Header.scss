@@ -1,0 +1,106 @@
+.header {
+  padding-top: 28px;
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    width: 210px;
+    height: 50px;
+
+    &-item {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 120%;
+      display: flex;
+      text-align: center;
+      align-items: flex-start;
+      text-transform: uppercase;
+      position: relative;
+      text-decoration: none;
+      color: $main-txt-color;
+
+      &:hover {
+        cursor: pointer;
+        color: $hover-color;
+        font-weight: 600;
+      }
+
+      &--active {
+        font-weight: 600;
+        color: $hover-color;
+
+          &::before {
+              position: absolute;
+              height: 2px;
+              width: 150%;
+              content: '';
+              background-color: $hover-color;
+              bottom: 0;
+              left: -25%;
+          }
+      }
+    }
+  }
+
+  &__list-shopping {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    width: $list-shopping-width;
+
+    &-item {
+      display: flex;
+      text-transform: uppercase;
+    }
+  }
+
+  &__logo {
+    width: 31px;
+    height: 28px;
+    transition: 0.8s;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+    }
+  }
+
+  &__btn {
+    border: none;
+    outline: none;
+    padding: 0;
+    background-color: transparent;
+    position: relative;
+    z-index: 1;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__amount-of-products {
+    width: 20px;
+    height: 20px;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 14px;
+    position: absolute;
+    top: -14px;
+    right: -12px;
+    z-index: 2;
+  }
+}
