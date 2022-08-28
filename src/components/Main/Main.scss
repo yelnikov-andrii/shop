@@ -20,12 +20,16 @@
       height: 444px;
       box-sizing: border-box;
       margin-bottom: 100px;
-      flex-grow: 1;
       flex-basis: 386px;
 
       @include onTablet {
         display: flex;
         align-items: center;
+        flex-grow: 1;
+      }
+
+      @include onDesktop {
+        flex-grow: 0;
       }
 
       @include forSmallScreen {
