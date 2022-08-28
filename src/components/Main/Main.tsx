@@ -37,7 +37,7 @@ export const Main: React.FC <Props> = ({products}) => {
           {product.name}
           </p>
           <p className='product-card__price'>
-            {selectedCurrency}
+            <span className='product-card__price-currency'>{selectedCurrency}</span>
             {product.prices.find((price: Price) => price.currency.symbol === selectedCurrency)?.amount}
           </p>
         </NavLink>

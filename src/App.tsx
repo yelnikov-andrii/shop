@@ -10,6 +10,7 @@ import { getData } from './api/api';
 import { useDispatch } from 'react-redux';
 import { GET_CURRENCIES_LIST } from './store/storeReducer';
 import { Category } from './types/type';
+import { Order } from './components/Order/Order';
 
 const  App: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -17,23 +18,43 @@ const  App: React.FC = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [techProducts, setTechProducts] = useState([]);
   const [clothProducts, setClothProducts] = useState([]);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getData()
     .then(result => {
+      try {
+      setIsLoading(true);
       setCategories(result);
       dispatch({ type: GET_CURRENCIES_LIST, payload: result[0].products[0].prices });
       setAllProducts(result[0].products);
       setClothProducts(result[1].products);
       setTechProducts(result[2].products);
-
+      setIsLoading(false);
+      } catch {
+        setIsError(true);
+      }
+      
     })
   }, []);
+
+  if (isError) {
+    return (
+      <div className='main__title'>
+        Error! Can not load data!!!
+      </div>
+    )
+  }
 
   return (
     <HashRouter>
       <div className="App">
       <Header categories={categories} />
+      {isLoading ? (
+        <div className='main__title'>Loading... </div>
+      ) : (
+<>
       <Routes>
             <Route 
               path='/'
@@ -62,6 +83,12 @@ const  App: React.FC = () => {
               <Cart 
               />}>
             </Route>
+
+            <Route 
+              path='/order' 
+              element={
+              <Order/>}>
+            </Route>
           </Routes>
       <Routes>
           {allProducts.map((product: any) => (
@@ -75,6 +102,8 @@ const  App: React.FC = () => {
               </Route>
             ))}
           </Routes>
+</>
+      )}
     </div>
     </HashRouter>
   );

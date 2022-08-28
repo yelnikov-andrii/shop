@@ -38,6 +38,7 @@
     visibility: hidden;
     position: absolute;
     background-color: #fff;
+    border: 1px solid $hover-color;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -50,6 +51,7 @@
 
     &--open {
       visibility: visible;
+
     }
 
     &-item {

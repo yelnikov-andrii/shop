@@ -9,6 +9,7 @@ export const INCREASE_QUANTITY = 'increase_qty';
 export const DECREASE_QUANTITY = 'decrease_qty';
 export const GET_TOTAL_PRICE = 'get_total_price';
 export const SET_TRANSLATE_TO_PRIDUCT = 'set_translate';
+export const CLEAR_SELECTED_PRODUCTS = 'clear_products';
 
 const defaultState = {
   selectedCategory: 'all',
@@ -68,6 +69,9 @@ export const storeReducer = (
         const theel = state.selectedProducts.find((pro: any) => pro.id === action.payload.id);
         theel.translate = theel.translate + action.payload.value;
       return {...state, selectedProducts: [...state.selectedProducts]}
+
+      case CLEAR_SELECTED_PRODUCTS:
+      return {...state, selectedProducts: []};
 
     default:
       return state;

@@ -1,7 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { INCREASE_QUANTITY, GET_QUANTITY_OF_PRODUCTS, DECREASE_QUANTITY, GET_TOTAL_PRICE, SET_TRANSLATE_TO_PRIDUCT } from '../../store/storeReducer';
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  INCREASE_QUANTITY,
+  GET_QUANTITY_OF_PRODUCTS,
+  DECREASE_QUANTITY,
+  GET_TOTAL_PRICE,
+  SET_TRANSLATE_TO_PRIDUCT,
+  CLEAR_SELECTED_PRODUCTS
+} from '../../store/storeReducer';
 import { Item, Price, SelectedProduct, State } from '../../types/type';
 
 export const Cart: React.FC = () => {
@@ -9,11 +17,12 @@ export const Cart: React.FC = () => {
   const selectedCurrency = useSelector((state: State) => state.selectedCurrency);
   const quantityOfProducts = useSelector((state: State) => state.quantityOfProducts);
   const total = useSelector((state: State) => state.totalPrice) || 0;
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({type: GET_TOTAL_PRICE});
-  }, [])
+  }, [location])
   
 
   return (
@@ -124,7 +133,6 @@ export const Cart: React.FC = () => {
                           return
                         } else {
                           dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {id: product.id, value: -210, }});
-                          console.log(selectedProducts)
                         }
                     }}
                   >
@@ -168,9 +176,16 @@ export const Cart: React.FC = () => {
                 </span>
             </li>
           </ul>
-          <button className='cart__block-bottom-button'>
+          <Link 
+            to='/order'
+            className='cart__block-bottom-button'
+            onClick={() => {
+              dispatch({type: CLEAR_SELECTED_PRODUCTS});
+              dispatch({type: GET_QUANTITY_OF_PRODUCTS});
+            }}
+            >
             Order
-          </button>
+          </Link>
         </div>
         </div>
         )}

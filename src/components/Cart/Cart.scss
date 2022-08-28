@@ -19,10 +19,18 @@
       border-top: 1px solid #e5e5e5;
       border-bottom: 1px solid #e5e5e5;
       padding: 23px 0 0 0;
+
+      @media (min-width: 320px) and (max-width: 768px) {
+        flex-direction: column;
+      }
     }
 
     &-description {
       width: 290px;
+
+      @media (min-width: 320px) and (max-width: 768px) {
+        width: 100%;
+      }
 
       &-top-block {
         margin-bottom: 32px;
@@ -66,12 +74,31 @@
       display: flex;
       justify-content: space-between;
 
+      @media (min-width: 320px) and (max-width: 768px) {
+        flex-direction: row-reverse;
+        width: 100%;
+        align-items: flex-end;
+      }
+
       &_selectors {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
         margin: 0 24px 24px 0;
+
+        @media (min-width: 320px) and (max-width: 768px) {
+          flex-direction: row-reverse;
+          width: 30%;
+          margin: 0;
+        }
+
+        @media (min-width: 320px) and (max-width: 425px) {
+          flex-direction: column;
+          width: 15%;
+          height: 220px;
+          margin: 0;
+        }
 
         &-btn {
           width: 45px;
@@ -82,6 +109,11 @@
           border: 1px solid $main-txt-color;
           background: transparent;
           outline: none;
+
+          @media (min-width: 320px) and (max-width: 768px) {
+            width: 35px;
+            height: 35px;
+          }
 
           &:hover {
             cursor: pointer;
@@ -139,6 +171,10 @@
         text-transform: uppercase;
         border: none;
         outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
 
         &:hover {
           cursor: pointer;

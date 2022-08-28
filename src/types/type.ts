@@ -12,7 +12,7 @@ export type Attribute = {
   items: Item[],
 }
 
-type Symbol = '$' | '£' | 'A$' | '¥' | '₽';
+type Symbol = '$' | '£' | 'A$' | '¥' | '₴';
 
 export type Currency = {
   symbol: Symbol,

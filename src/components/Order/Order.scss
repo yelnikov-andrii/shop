@@ -1,0 +1,9 @@
+.order {
+  display: flex;
+  justify-content: center;
+
+  &__title {
+    font-weight: 700;
+    display: inline-block;
+  }
+}

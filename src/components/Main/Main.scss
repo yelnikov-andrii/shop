@@ -5,6 +5,7 @@
     margin: 0 0 80px 0;
     font-weight: 400;
     font-size: 42px;
+    text-indent: 10px;
 
     &::first-letter {
       text-transform: uppercase;
@@ -16,14 +17,29 @@
     flex-wrap: wrap;
 
     &-item {
-      width: 386px;
       height: 444px;
       box-sizing: border-box;
       margin-bottom: 100px;
+      flex-grow: 1;
+      flex-basis: 386px;
+
+      @include onTablet {
+        display: flex;
+        align-items: center;
+      }
+
+      @include forSmallScreen {
+        flex-basis: 300px;
+        box-sizing: border-box;
+      }
     }
 
     &-item:not(:nth-child(3n)) {
       margin-right: 40px;
+
+      @include onTablet {
+        margin-right: 0;
+      }
     }
   }
 }

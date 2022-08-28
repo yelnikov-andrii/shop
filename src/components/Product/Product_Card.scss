@@ -6,6 +6,10 @@
   text-decoration: none;
   position: relative;
 
+  @include forSmallScreen {
+    padding: 0;
+  }
+
   &--outstock {
     opacity: 0.5;
 
@@ -46,6 +50,10 @@
     height: 338px;
     margin-bottom: 24px;
     object-fit: contain;
+
+    @include forSmallScreen {
+      width: 300px;
+    }
   }
 
   &__name {
@@ -56,9 +64,13 @@
   }
 
   &__price {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 18px;
     margin: 0;
+
+    &-currency {
+      margin-right: 10px;
+    }
   }
 
 }

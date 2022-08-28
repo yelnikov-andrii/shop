@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
+import classNames from 'classnames';
 import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_PRODUCT_TO_CART, GET_QUANTITY_OF_PRODUCTS } from '../../store/storeReducer';
@@ -12,6 +13,8 @@ export const Product: React.FC <Props> = ({product}) => {
   const images = product.gallery;
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const[selectedProduct, setSelectedProduct] = useState<SelectedProduct>();
+  const [messageAboutAdding, setMessageAboutAdding] = useState('');
+  const [messageIsActive, setMessageIsActive] = useState(false);
   const selectedCurrency = useSelector((state: State) => state.selectedCurrency);
   const dispatch = useDispatch();
 
@@ -24,6 +27,16 @@ export const Product: React.FC <Props> = ({product}) => {
         elem.innerHTML = value;
       }
     }
+  }
+
+  const addMessageAboutAdding = (value: string) => {
+    setMessageAboutAdding(value);
+    setMessageIsActive(true);
+
+    setTimeout(() => {
+      setMessageAboutAdding('');
+      setMessageIsActive(false);
+    }, 2000)
   }
 
   useEffect(() => {
@@ -99,7 +112,6 @@ export const Product: React.FC <Props> = ({product}) => {
                             setSelectedProduct({...selectedProduct, selAttr: [newAttr]});
                           }
                         }
-                        console.log(selectedProduct)
                         }}
                     >
                   </li>
@@ -128,7 +140,6 @@ export const Product: React.FC <Props> = ({product}) => {
                             setSelectedProduct({...selectedProduct, selAttr: [newAttr]});
                           }
                         }
-                        console.log(selectedProduct)
                       }}
                     >
                       {item.displayValue}
@@ -147,6 +158,7 @@ export const Product: React.FC <Props> = ({product}) => {
           </p>
 
           {product.inStock ? (
+            <div className='product-description__buttons-block'>
             <button 
               className='product-description__button'
               onClick={() => {
@@ -155,9 +167,14 @@ export const Product: React.FC <Props> = ({product}) => {
                 productToAdd.translate = 0;
                 dispatch({type: ADD_PRODUCT_TO_CART, payload: productToAdd});
                 dispatch({type: GET_QUANTITY_OF_PRODUCTS});
+                addMessageAboutAdding('Good has been added');
               }}>
               Add to cart
             </button>
+            <div className={classNames('product-description__message', {
+              'product-description__message--active': messageIsActive,
+            })}>{messageAboutAdding}</div>
+            </div>
           ) : (
             <button className='product-description__button product-description__button--outOfStock'>
               Add to cart

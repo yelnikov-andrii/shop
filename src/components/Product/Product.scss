@@ -2,16 +2,52 @@
   display: flex;
   padding: 80px 0 180px;
 
+  @media (min-width: 320px) and (max-width: 768px) {
+    flex-direction: column;
+  }
+
   &__block-images {
     width: 60%;
     display: flex;
     justify-content: space-between;
     margin-right: 120px;
 
+    @media (min-width: 320px) and (max-width: 768px) {
+      margin-right: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    @include onTablet {
+      margin-right: 50px;
+      flex-direction: column;
+    }
+
+    @include onDesktop {
+      margin-right: 120px;
+      flex-direction: row;
+    }
+
     &_aside {
       display: flex;
       flex-direction: column;
       flex-basis: 80px;
+
+      @media (min-width: 320px) and (max-width: 768px) {
+        margin-right: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      @include onTablet {
+        margin-right: 50px;
+        flex-direction: row;
+      }
+  
+      @include onDesktop {
+        margin-right: 120px;
+        flex-direction: column;
+      }
 
       &--small {
         width: 80px;
@@ -19,6 +55,11 @@
         transition: 0.4s ease-out;
         object-fit: contain;
         margin-bottom: 5px;
+
+        @media (min-width: 320px) and (max-width: 768px) {
+          width: 100px;
+        height: 100px;
+        }
 
         &:hover {
           cursor: pointer;
@@ -40,5 +81,9 @@
 
   &__block-description {
     width: 292px;
+
+    @media (min-width: 320px) and (max-width: 768px) {
+      width: 100%;
+    }
   }
 }
