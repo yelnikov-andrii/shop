@@ -92,7 +92,7 @@ export const Cart: React.FC = () => {
                     <button 
                       className='cart__block-quantity_selectors-btn'
                       onClick={() => {
-                        dispatch({type: INCREASE_QUANTITY, payload: product.id});
+                        dispatch({type: INCREASE_QUANTITY, payload: product});
                         dispatch({type: GET_QUANTITY_OF_PRODUCTS});
                         dispatch({type: GET_TOTAL_PRICE});
                       }}
@@ -105,7 +105,7 @@ export const Cart: React.FC = () => {
                     <button 
                       className='cart__block-quantity_selectors-btn'
                       onClick={() => {
-                        dispatch({type: DECREASE_QUANTITY, payload: product.id});
+                        dispatch({type: DECREASE_QUANTITY, payload: product});
                         dispatch({type: GET_QUANTITY_OF_PRODUCTS});
                         dispatch({type: GET_TOTAL_PRICE});
                       }}

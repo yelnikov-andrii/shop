@@ -55,15 +55,13 @@ export const storeReducer = (
         ] }
 
     case INCREASE_QUANTITY:
-      const elem = state.selectedProducts.find((el: any) => el.id === action.payload);
-      elem.qty++;
+      action.payload.qty++;
       return {...state, selectedProducts: [...state.selectedProducts]}
 
     case DECREASE_QUANTITY:
-      const foundEl = state.selectedProducts.find((el: any) => el.id === action.payload);
-      foundEl.qty--;
-      if (foundEl.qty === 0) {
-        return {...state, selectedProducts: state.selectedProducts.filter(((el: any) => el.id !== action.payload))}
+      action.payload.qty--;
+      if (action.payload.qty === 0) {
+        return {...state, selectedProducts: state.selectedProducts.filter(((el: any) => el.qty !== 0))}
       }
       return {...state, selectedProducts: [...state.selectedProducts]}
 
