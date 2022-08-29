@@ -159,5 +159,10 @@
     &--active {
       opacity: 1;
     }
+
+    &--red {
+      color: red;
+      border: 1px solid red;
+    }
   }
 }

@@ -15,6 +15,7 @@ export const Product: React.FC <Props> = ({product}) => {
   const[selectedProduct, setSelectedProduct] = useState<SelectedProduct>();
   const [messageAboutAdding, setMessageAboutAdding] = useState('');
   const [messageIsActive, setMessageIsActive] = useState(false);
+  const [colorOfMessage, setColorOfMessage] = useState('');
   const selectedCurrency = useSelector((state: State) => state.selectedCurrency);
   const dispatch = useDispatch();
 
@@ -29,9 +30,10 @@ export const Product: React.FC <Props> = ({product}) => {
     }
   }
 
-  const addMessageAboutAdding = (value: string) => {
+  const addMessageAboutAdding = (value: string, color: string) => {
     setMessageAboutAdding(value);
     setMessageIsActive(true);
+    setColorOfMessage(color);
 
     setTimeout(() => {
       setMessageAboutAdding('');
@@ -162,17 +164,22 @@ export const Product: React.FC <Props> = ({product}) => {
             <button 
               className='product-description__button'
               onClick={() => {
-                const productToAdd = {...selectedProduct}
+                if (selectedProduct?.selAttr.length !== 0 && selectedProduct?.selAttr.length === product.attributes.length) {
+                  const productToAdd = {...selectedProduct}
                 productToAdd.qty = 1;
                 productToAdd.translate = 0;
                 dispatch({type: ADD_PRODUCT_TO_CART, payload: productToAdd});
                 dispatch({type: GET_QUANTITY_OF_PRODUCTS});
-                addMessageAboutAdding('Good has been added');
+                addMessageAboutAdding('Good has been added', 'green');
+                } else {
+                  addMessageAboutAdding('You have to choose an attributes!!!', 'red')
+                }
               }}>
               Add to cart
             </button>
             <div className={classNames('product-description__message', {
               'product-description__message--active': messageIsActive,
+              'product-description__message--red': colorOfMessage === 'red',
             })}>{messageAboutAdding}</div>
             </div>
           ) : (
