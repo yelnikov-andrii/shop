@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { GET_CURRENCIES_LIST } from './store/storeReducer';
 import { Category } from './types/type';
 import { Order } from './components/Order/Order';
+import { Oval } from 'react-loader-spinner';
 
 const  App: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -52,7 +53,23 @@ const  App: React.FC = () => {
       <div className="App">
       <Header categories={categories} />
       {isLoading ? (
-        <div className='main__title'>Loading... </div>
+        <div className='container'>
+          <div className='main__title'>
+          Loading...
+        <Oval
+          height={40}
+          width={40}
+          color="#5ECE7B"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel='oval-loading'
+          secondaryColor="#4fa94d"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+        </div>
+        </div>
       ) : (
 <>
       <Routes>
