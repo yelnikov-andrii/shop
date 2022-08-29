@@ -69,8 +69,7 @@ export const storeReducer = (
       return {...state, totalPrice: state.selectedProducts.reduce((a: any, b: any) => a + b.qty * (b.prices.find((el: any) => el.currency.symbol === state.selectedCurrency).amount), 0)}
 
       case SET_TRANSLATE_TO_PRIDUCT:
-        const theel = state.selectedProducts.find((pro: any) => pro.id === action.payload.id);
-        theel.translate = theel.translate + action.payload.value;
+        action.payload.pro.translate = action.payload.pro.translate + action.payload.value;
       return {...state, selectedProducts: [...state.selectedProducts]}
 
       case CLEAR_SELECTED_PRODUCTS:

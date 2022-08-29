@@ -120,7 +120,7 @@ export const Cart: React.FC = () => {
                         if (product.translate === 0) {
                           return
                         } else {
-                          dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {id: product.id, value: 210, }});
+                          dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {pro: product, value: 210, }});
                         }
                       }}
                   >
@@ -132,7 +132,7 @@ export const Cart: React.FC = () => {
                         if (product.translate <= (210 * -1 * (product.gallery.length - 1))) {
                           return
                         } else {
-                          dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {id: product.id, value: -210, }});
+                          dispatch({type: SET_TRANSLATE_TO_PRIDUCT, payload: {pro: product, value: -210, }});
                         }
                     }}
                   >
