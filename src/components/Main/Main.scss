@@ -21,6 +21,7 @@
       box-sizing: border-box;
       margin-bottom: 100px;
       flex-basis: 386px;
+      position: relative;
 
       @include onTablet {
         display: flex;

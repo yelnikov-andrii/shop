@@ -41,8 +41,13 @@ export const storeReducer = (
       return { ...state, selectedCurrency: action.payload }
 
     case ADD_PRODUCT_TO_CART:
-      if (state.selectedProducts.find((el: any) => el.name === action.payload.name)) {
-        const foundEl = state.selectedProducts.find((el: any) => el.name === action.payload.name);
+      const filtered = state.selectedProducts.filter((el: any) => el.name === action.payload.name);
+      const valuesOfPaylod = action.payload.selAttr.map((ob: any) => Object.values(ob));
+      const arrOfFiltered = filtered.map((el: any) => el.selAttr.map((ob: any) => Object.values(ob)));
+      const found = arrOfFiltered.findIndex((el: any) => el.every((e: any, i: any, arr: any) => arr[i][0] === valuesOfPaylod[i][0]));
+      console.log(found)
+      if (found >= 0) {
+        const foundEl = filtered[found];
         foundEl.qty++;
         return {...state, selectedProducts: [...state.selectedProducts]}
       }
